@@ -1,46 +1,153 @@
-# Bot Battlr Army 
+React Immersive Code Challenge: Bot Battlr
+Welcome to **Bot Battlr**, the one and only spot in the known universe where you
+can custom build your own Bot Army! This is our app:
+checkpoint_demo.gif
+ 
 
-This is a React web app built for the Bot Overlord to choose which bots to call up to join his army.The Overlord can also dismiss bots from service with the application. 
+Here's the scenario: a galactic overlord has hired you, a galactic web
+developer, to develop a galactic web app that will allow them to browse through
+a list of robots, view a robot's details, and, enlist a bot into their army.
+Instructions
+For this project, you’ll be building out a React application that displays a
+list of available bots, among other features.
+Part of what this code challenge is testing is your ability to follow given
+instructions. While you will definitely have a significant amount of freedom in
+how you implement the features, be sure to carefully read the directions for
+setting up the application.
+Setup
+Create a new PRIVATE repository in this GitHub Organization (Moringa-SDF-PTO5Links to an external site.). Ensure your repository has a name in the following format; botbattlr-firstname-lastname (Example: botbattlr-jane-doe). Take note, any other repository name will NOT be graded.
+Download the server db.json file from here Download here.
+Ensure you have json-server installed on your machine.
+Run this command to get the backend started: $ json-server --watch db.json
+Test your server by visiting this route in the browser: http://localhost:3000/bots 
+Since you will be required to deploy your project, you will also need to deploy your json-server. Use thisLinks to an external site. as a guide to deploy your json-server.
+Core Deliverables
+As a user, I should be able to:
+- See profiles of all bots rendered in `BotCollection`.
+- Add an individual bot to my army by clicking on it. The selected bot should
+render in the `YourBotArmy` component. The bot can be enlisted only **once**.
+The bot **does not** disappear from the `BotCollection`.
+- Release a bot from my army by clicking on it. The bot disappears from the
+`YourBotArmy` component.
+- Discharge a bot from their service forever, by clicking the red button marked
+"x", which would delete the bot both from the backend and from the
+`YourBotArmy` on the frontend.
+Endpoints for Core Deliverables
+GET /bots
+Example Response:
 
-## Built With
-This web application has been built using:
+[
+ {
+"id": 101,
+"name": "wHz-93",
+"health": 94,
+"damage": 20,
+"armor": 63,
+"bot_class": "Support",
+"catchphrase": "1010010101001101100011000111101",
+"avatar_url": "https://robohash.org/nostrumrepellendustenetur.png?size=300x300&set=set1",
+"created_at": "2018-10-02T19:55:10.800Z",
+"updated_at": "2018-10-02T19:55:10.800Z"
+ },
 
-- HTML5
-- CSS3
-- React js
+ {
+"id": 102,
+"name": "RyM-66",
+"health": 86,
+"damage": 36,
+"armor": 77,
+"bot_class": "Medic",
+"catchphrase": "0110011100000100011110100110011000011001",
+"avatar_url": "https://robohash.org/quidemconsequaturaut.png?size=300x300&set=set1",
+"created_at": "2018-10-02T19:55:10.827Z",
+"updated_at": "2018-10-02T19:55:10.827Z"
+ }
+]
+ 
 
-## Prerequisites
-You need to have installed 
-1. VS Code
-2. NodeJS v10.18
-3. Vite 
+DELETE /bots/:id
+Example Response:
+{ }
+ 
 
-### Steps
-1. Clone the repository:
+Advanced Deliverables
+These deliverables are not required to pass the code challenge, but if you have
+the extra time, or even after the code challenge, they are a great way to
+stretch your skills.
+Note: If you are going to attempt these advanced deliverables, please be sure to have a working commit with all the Core Deliverables first!
+ 
 
-    ```git@github.com:Moringa-SDF-PTO5/botbattlr-collins-bett.git```
+As a user, I should be able to:
+- Choose if I want to enlist a bot into my army or just see their data. Clicking
+on the card should instead display a show view (`BotSpecs`) for that bot,
+which should replace `BotsCollection`. BotSpecs should have two buttons: one
+to go back to the list view and another to enlist that bot. Your app could
+look like the following:
+full_demo.gif
 
-2. Open the project file in VS Code
+- Sort bots by their health, damage or armor. For this, create a new component,
+`SortBar`.
+- When I enlist a bot it will be **removed** from the `BotCollection` and added
+to `YourBotArmy`.
+- Filter bots by their class. We can select a few filters at the same time.
+- Sort bots by their health, damage or armor. For this, create a new component,
+`SortBar`.
+- Only enlist **one** bot from each `bot_class`. The classes are
+`["Support", "Medic", "Assault", "Defender", "Captain", "Witch"]`.
+ 
 
-3. Click ```Teminal``` then ```New Terminal```.
-
-4. In the terminal run ```npm install```
-
-5. Thhen run ```npm run dev```
-
-6. Copy the link generated then paste in web browser.
-
-## Author
-The repo is maintained by:
-- Collins Bett
-
-## LICENSE
-```
-Copyright 2024 COLLINS BETT
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
+Rubric
+Phase 4 Rubric
+Phase 4 Rubric
+Criteria	Ratings	Pts
+This criterion is linked to a Learning OutcomeProps & State
+5 pts
+5
+Advanced deliverables are met.
+4 pts
+4
+State works and is held by the lowest common component. No unnecessary state is created. Only the necessary props are being passed down. Functions used to edit state are passed down.
+3 pts
+3
+State is working. However, it may be in the wrong component, it might be nested oddly or might have some unnecessary state. Props are being passed unnecessarily to components. Functions that change or calculate state are not defined in the component that they are most closely tied to.
+2 pts
+2
+State is not being set or updated. Props are not being passed down, or you are passing down the right prop but trying to access it incorrectly (wrong name, unnecessary this, state instead of props) or key props are missing. API call does not successfully populate state or does not rely on state at all (e.g. uses querySelector() to grab the value instead of passing the state).
+1 pts
+1
+No code or very little code has been written or the code doesn't run. If it runs, no deliverables have been met. Not managed to set state or pass props successfully.
+5 pts
+This criterion is linked to a Learning OutcomeCode Structure/Efficiency
+5 pts
+5
+Advanced deliverables met. Uses some of the following: destructuring, functional components, spreading, hooks, pure functions, performance is taken into account.
+4 pts
+4
+Components are structured in a logical way. Class components only used when needed, functional components used for everything else. Code is abstracted into clear methods. Used object destructuring and spread operator successfully.
+3 pts
+3
+Fetch is triggered in the right place. Code is not abstracted into clear methods. Additional components have been added which serve no purpose. Props and variables could be named consistently and descriptively.
+2 pts
+2
+Starter components have been unnecessarily modified and broken. There is no reference to componentDidMount. Incorrect or unnecessary lifecycle methods are used. Vanilla JavaScript methods (e.g. querySelector()) are being used instead of appropriate React techniques.
+1 pts
+1
+No code or very little code has been written or the code doesn't run, i.e. syntax errors, imports missing, etc. If it runs, no deliverables have been met.
+5 pts
+This criterion is linked to a Learning OutcomeRendering
+5 pts
+5
+Everything from 4 plus extra features were added that are not listed in the deliverables.
+4 pts
+4
+Renders everything that is asked for in the deliverables. Components are abstract/reusable. No unnecessary components were created.
+3 pts
+3
+Renders everything that is asked for in the deliverables. Components could be more abstract/reusable. May have created own components instead of using the components provided.
+2 pts
+2
+Did not manage to render everything that was asked for in the deliverables.
+1 pts
+1
+No code or very little code has been written or the code doesn't run. If it runs, no deliverables have been met.
+5 pts

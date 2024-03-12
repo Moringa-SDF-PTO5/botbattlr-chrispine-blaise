@@ -7,58 +7,58 @@ function Home() {
   const [army, setArmy] = useState([]);
  
   useEffect(() => {
+    fetchBots();
+  }, []);
+
+  const fetchBots = () => {
     fetch(`https://json-server-q9ux.onrender.com/bots`)
       .then((res) => res.json())
       .then((data) => {
-
         setBots(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching bots:", error);
       });
-  }, []);
+  };
 
   const updateArmy = (armyId) => {
     setArmy((previousArmy) => {
-      const isExistBot = previousArmy.find((item) =>
-        item.id === armyId ? true : false
-      ); // checks whether bot is in army
+      const isExistBot = previousArmy.some((item) => item.id === armyId);
 
       if (isExistBot) return previousArmy;
-      const selectedBot = bots.find((item) =>
-        item.id === armyId ? true : false
-      );
-      const newArmy = [...previousArmy, selectedBot]; // Add the new bot to the array
+
+      const selectedBot = bots.find((item) => item.id === armyId);
+      const newArmy = [...previousArmy, selectedBot];
       return newArmy;
     });
   };
 
   const deleteBot = (armyId, context) => {
-    console.log(armyId,context)
-    function deleteFromBotArmy() {
-      setArmy((previousArmy) => {
-        return previousArmy.filter((item) => item.id !== armyId);
-      });
-    }
     switch (context) {
       case "army":
-        deleteFromBotArmy();
+        setArmy((previousArmy) => previousArmy.filter((item) => item.id !== armyId));
         break;
       case "collection":
-        deleteFromBotArmy();
-        setBots((previousBots) => {
-          return previousBots.filter((item) => item.id !== armyId);
-        });
-        fetch(`https://json-server-q9ux.onrender.com/bots/${armyId}`, {
-          method: "DELETE",
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data))
-          .catch((error) => console.error("Error:", error));
-          break;
+        setBots((previousBots) => previousBots.filter((item) => item.id !== armyId));
+        deleteFromServer(armyId);
+        break;
+      default:
+        break;
     }
+  };
+
+  const deleteFromServer = (botId) => {
+    fetch(`https://json-server-q9ux.onrender.com/bots/${botId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error deleting bot:", error));
   };
 
   return (
     <>
-      <BotArmy troops={army} removeTroop={deleteBot}/>
+      <BotArmy troops={army} removeTroop={deleteBot} />
       <BotCollection botCollectionArmy={bots} updateTroops={updateArmy} removeBot={deleteBot} />
     </>
   );
